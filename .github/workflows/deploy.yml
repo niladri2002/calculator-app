@@ -20,12 +20,13 @@ jobs:
       - name: 📦 Install dependencies
         run: npm install
 
-      - name: 🧑‍💻 Configure Git
-        run: |
-          git config --global user.name 'github-actions-bot'
-          git config --global user.email 'actions@github.com'
+      - name: 🛠️ Build project
+        run: npm run build
 
       - name: 🚀 Deploy to GitHub Pages
-        run: npm run deploy
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          git config --global user.name "github-actions-bot"
+          git config --global user.email "actions@github.com"
+          npx gh-pages -d build -u "github-actions-bot <actions@github.com>" -r https://$GH_TOKEN@github.com/niladri2002/calculator-app.git
